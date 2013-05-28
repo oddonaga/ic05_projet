@@ -1,7 +1,9 @@
 <?php session_start(); 
 
-// $_SESSION["id"]=1;
+// $_SESSION["id"]=0;
 echo 'id='.$_SESSION["id"];
+
+print_r($_SESSION["array"]); 
 
 if($_GET["choix"]){
 	$fp = fopen('data.csv', 'a');

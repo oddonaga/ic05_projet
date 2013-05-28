@@ -11,6 +11,9 @@ $array=array();
 $i=0;
 
 foreach ($lines as $lineNumber => $lineContent){
+
+	// $lineContent=utf8_encode($lineContent);
+
 	if($bool){
 		echo $lineContent.'<br>';
 		$array[$i]["user"]=$lineContent;

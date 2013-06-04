@@ -48,6 +48,6 @@ print_r($array);
 // u : from_user_id
 // t : text
 // d : created_at
-// n : from_user (pseudo)
+// n : from_user
 
 ?>

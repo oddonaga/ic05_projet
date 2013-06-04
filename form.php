@@ -27,7 +27,7 @@ if($_GET["choix"]){
 	$_SESSION["tweets"][$session_id]=$text;
 	$_SESSION["tweets_choix"][$session_id]=$choix;
 
-	fwrite($fp, $_SESSION["id"].','.$user.','.$choix.','.$date."\n");
+	fwrite($fp, $user.','.$choix.','.$date."\n");
 	
 
 
@@ -39,7 +39,7 @@ if($_GET["choix"]){
 		$user=$_SESSION["array"][$_SESSION["id"]]["u"];
 		$choix=$_SESSION["tweets_choix"][$key];
 		$date=$_SESSION["array"][$_SESSION["id"]]["d"];
-		fwrite($fp, $_SESSION["id"].','.$user.','.$choix.','.$date."\n");
+		fwrite($fp, $user.','.$choix.','.$date."\n");
 		$_SESSION["id"]=$_SESSION["id"]+1;
 	}
 
@@ -50,7 +50,9 @@ if($_GET["choix"]){
 
 <br><br>
 <p>
-	<?php echo 'id='.$_SESSION["id"].'<br>';
+	<?php echo 'session_id='.$_SESSION["id"].'<br>';
+	echo 'user = <a href=\'https://twitter.com/'.$_SESSION["array"][$_SESSION["id"]]["n"].'\' target=\'_blank\'>'.$_SESSION["array"][$_SESSION["id"]]["n"].'</a><br>';
+	echo '<br>';
 	echo $_SESSION["array"][$_SESSION["id"]]["t"]; ?>
 </p>
 

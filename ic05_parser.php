@@ -11,7 +11,7 @@ echo "<meta http-equiv=\"Content-Type\" content=\"text/HTML; charset=utf-8\" />"
 $array=array();
 $i=-2;
 
-$string = file_get_contents("./26mai/results.json");
+$string = file_get_contents("./data/tweets.json");
 
 
 $jsonIterator = new RecursiveIteratorIterator(
@@ -28,6 +28,7 @@ foreach ($jsonIterator as $key => $val) {
 	        if($key=="from_user_id") $array[$i]["u"]=$val;
 	        else if($key=="text") $array[$i]["t"]=$val;
 	        else if($key=="created_at") $array[$i]["d"]=$val;
+	        else if($key=="from_user") $array[$i]["n"]=$val;
 	    }
 }
 
@@ -47,5 +48,6 @@ print_r($array);
 // u : from_user_id
 // t : text
 // d : created_at
+// n : from_user (pseudo)
 
 ?>

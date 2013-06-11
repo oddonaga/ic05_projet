@@ -11,7 +11,7 @@ echo "<meta http-equiv=\"Content-Type\" content=\"text/HTML; charset=utf-8\" />"
 $array=array();
 $i=-2;
 
-$string = file_get_contents("./data/tweets.json");
+$string = file_get_contents("./data/tweets2.json");
 
 
 $jsonIterator = new RecursiveIteratorIterator(

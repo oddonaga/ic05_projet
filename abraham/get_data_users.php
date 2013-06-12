@@ -14,32 +14,27 @@ if($connection)
 	echo "connection worked<br/>";
 	
 
-$array = file('../data2.csv');
-$fp = fopen('users.csv', 'a');
+$array = file('users_id_500.csv');
+$fp = fopen('users_followers_500.csv', 'a');
 
 
 
-for($i=62;$i<count($array);$i++) {
+for($i=25;$i<100;$i++) {
+
 	$ligne=$array[$i];
 	$ligne_a=explode(',', $ligne);
 	$id=$ligne_a[0];
-	echo $id.',';
-	fwrite($fp, $id.',');
+	$username=$ligne_a[1];
+	$nbreFollowers=intval($ligne[2]);
 
-	// username
-	$parameters = array('user_id' => $id);
-	$result = $connection->get('users/show', $parameters);
-
-	foreach ($result as $key => $value) {
-		if($key=="screen_name"){
-			echo $value.',';
-			fwrite($fp, $value.',');
-		}
-	}
+	echo 'id='.$id.', followers => ';
+	// fwrite($fp, $id.',');
 
 	// Followers
-	$parameters = array('user_id' => $id, 'count' =>5000);
+	$parameters = array('user_id' => $id, 'count' => 5000);
 	$followers = $connection->get('followers/ids', $parameters);
+
+	// print_r($followers);
 	$tab=array();
 	foreach ($followers as $key => $value) {
 		if($key=="errors"){
@@ -56,11 +51,11 @@ for($i=62;$i<count($array);$i++) {
 		}
 	}
 	echo implode(';', $tab)."<br>";
-	fwrite($fp, implode(';', $tab)."\n");
+	fwrite($fp, $id.','.implode(';', $tab)."\n");
 
 	// var_dump($result);
 
-	$i++;	
+	// $i++;	
 }
 
 

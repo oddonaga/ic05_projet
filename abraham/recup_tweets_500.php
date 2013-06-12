@@ -35,6 +35,7 @@ for ($i=0; $i < count($array) ; $i++) {
 
     if(in_array($val->{'from_user_id'}, $users)){
     	echo " in array<br>";
+    	fwrite($fp, json_encode($val));
     }
     else echo "<br>";
 }

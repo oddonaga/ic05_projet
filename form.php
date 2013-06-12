@@ -12,36 +12,24 @@
 echo "<meta http-equiv=\"Content-Type\" content=\"text/HTML; charset=utf-8\" />";
 
 
-// print_r($_SESSION["array"]); 
+// print_r($_SESSION["tweets"]); 
 
 
 if($_GET["choix"]){
 	$fp = fopen('data.csv', 'a');
 
-	$user=$_SESSION["array"][$_SESSION["id"]]["u"];
-	$date=$_SESSION["array"][$_SESSION["id"]]["d"];
-	$text=$_SESSION["array"][$_SESSION["id"]]["t"];
+	$user=$_SESSION["tweets"][$_SESSION["id"]]["user_id"];
+	$username=$_SESSION["tweets"][$_SESSION["id"]]["username"];
+	$date=$_SESSION["tweets"][$_SESSION["id"]]["date"];
+	$text=$_SESSION["tweets"][$_SESSION["id"]]["text"];
+	// $tweet_id=$_SESSION["tweets"][$_SESSION["id"]]["id"];
+
 	$choix=$_GET["choix"];
 	$session_id=$_SESSION["id"];
 
-	$_SESSION["tweets"][$session_id]=$text;
-	$_SESSION["tweets_choix"][$session_id]=$choix;
-
-	fwrite($fp, $user.','.$choix.','.$date."\n");
+	fwrite($fp, $user.','.$username.','.$date.','.$choix."\n");
 	
-
-
 	$_SESSION["id"]=$session_id+1;
-	$text_suivant=$_SESSION["array"][$_SESSION["id"]]["t"];
-	if($key = array_search($text_suivant, $_SESSION["tweets"])){
-		// retweet -> on écrit directement dans data.csv
-		// echo '<br>RETWEET de '.$key.' : '.$_SESSION["array"][$_SESSION["id"]]["t"].'<br>user : '.$_SESSION["array"][$_SESSION["id"]]["u"].'<br>';
-		$user=$_SESSION["array"][$_SESSION["id"]]["u"];
-		$choix=$_SESSION["tweets_choix"][$key];
-		$date=$_SESSION["array"][$_SESSION["id"]]["d"];
-		fwrite($fp, $user.','.$choix.','.$date."\n");
-		$_SESSION["id"]=$_SESSION["id"]+1;
-	}
 
 	fclose($fp);
 }
@@ -51,9 +39,14 @@ if($_GET["choix"]){
 <br><br>
 <p>
 	<?php echo 'session_id='.$_SESSION["id"].'<br>';
-	echo 'user = <a href=\'https://twitter.com/'.$_SESSION["array"][$_SESSION["id"]]["n"].'\' target=\'_blank\'>'.$_SESSION["array"][$_SESSION["id"]]["n"].'</a><br>';
+	echo 'user = <a href=\'https://twitter.com/'.$_SESSION["tweets"][$_SESSION["id"]]["username"].'\' target=\'_blank\'>'.$_SESSION["tweets"][$_SESSION["id"]]["username"].'</a><br>';
 	echo '<br>';
-	echo $_SESSION["array"][$_SESSION["id"]]["t"]; ?>
+
+	$string = $_SESSION["tweets"][$_SESSION["id"]]["text"]; 
+	$pattern = "/(http:\/\/)([a-zA-Z0-9\/.]+)/"; 
+	$replacement = "<a href='\\1\\2' target='_blank'>\\1\\2</a>"; 
+	$text_url = preg_replace($pattern, $replacement, $string); 
+	echo $text_url; ?>
 </p>
 
 <form name="formulaire" method="GET" action="">
@@ -63,5 +56,5 @@ if($_GET["choix"]){
 </form>
 
 
-<!-- Format du fichier csv sortant : user_id,choix,date -->
+<!-- Format du fichier csv sortant : user_id,usernname,date,choix -->
 <!-- avec choix=pour|contre|neutre -->

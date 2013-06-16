@@ -2,8 +2,14 @@
 
 session_start();
 
+header ("Refresh: 300;URL=get_count_followers_user.php");
+
 require_once('lib/twitteroauth.php');
 require_once('config.php');
+
+echo "<meta http-equiv=\"Content-Type\" content=\"text/HTML; charset=utf-8\" />";
+
+
 
 
 
@@ -15,11 +21,18 @@ if($connection)
 	
 
 $array = file('users_id.csv');
-$fp = fopen('users_id_500.csv', 'a');
+$fp = fopen('users_id_200.csv', 'a');
 
 
+$begin_id=intval($_SESSION["id_get"]);
+echo 'Je reprends à '.$begin_id.' ';
+if (($begin_id+200) < count($array))
+	$end_id=$begin_id+200;
+else $end_id=count($array);
+echo 'jusqu\'à '.$end_id.'<br><br>';
 
-for($i=1797;$i<1900;$i++) {
+
+for($i=$begin_id ; $i<$end_id ; $i++) {
 	$id=intval($array[$i]);
 	echo 'i='.$i.', id='.$id;
 
@@ -29,16 +42,15 @@ for($i=1797;$i<1900;$i++) {
 	
 	foreach ($result as $key => $value) {
 		if($key=="errors"){
-			echo '<br>';
+			echo '<br>Error : ';
 			print_r($value);
 			foreach ($value as $key2 => $value2) {
-				if(is_array($value2))
-					foreach ($value as $key3 => $value3) {
-						if($key3=="code" and ($value3=="88" or $value3=88))
-							return;
-					}
-				if($key2=="code" and ($value2=="88" or $value2=88))
+				if($key2=="code" and ($value2=="88" or $value2=88)){
+					$_SESSION["id_get"]=$i;
+					echo '<br>Je sauve id_get à '.$i;
 					return;
+				}
+					
 			}
 		}
 
@@ -47,7 +59,7 @@ for($i=1797;$i<1900;$i++) {
 		}
 		else if($key=="followers_count"){
 			echo ' followers_count='.$value;
-			if($value>500){
+			if($value>200){
 				fwrite($fp, $id.','.$name.','.$value."\n");
 			}
 		}

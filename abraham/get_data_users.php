@@ -2,8 +2,12 @@
 
 session_start();
 
+header ("Refresh: 900;URL=get_data_users.php");
+
 require_once('lib/twitteroauth.php');
 require_once('config.php');
+
+echo "<meta http-equiv=\"Content-Type\" content=\"text/HTML; charset=utf-8\" />";
 
 
 
@@ -14,12 +18,22 @@ if($connection)
 	echo "connection worked<br/>";
 	
 
-$array = file('users_id_500.csv');
-$fp = fopen('users_followers_500.csv', 'a');
+$array = file('users_id_200.csv');
+$fp = fopen('users_followers_200.csv', 'a');
+
+echo 'count users=';
+echo count($_SESSION["users"]);
+echo '<br>';
 
 
+$begin_id=intval($_SESSION["id_get"]);
+echo 'Je reprends à '.$begin_id.'<br>';
+if (($begin_id+20) < count($array))
+	$end_id=$begin_id+20;
+else $end_id=count($array);
+echo 'jusqu\'à '.$end_id.'<br><br>';
 
-for($i=25;$i<100;$i++) {
+for($i=$begin_id ; $i<$end_id ; $i++) {
 
 	$ligne=$array[$i];
 	$ligne_a=explode(',', $ligne);
@@ -27,7 +41,8 @@ for($i=25;$i<100;$i++) {
 	$username=$ligne_a[1];
 	$nbreFollowers=intval($ligne[2]);
 
-	echo 'id='.$id.', followers => ';
+	echo 'i='.$i.', id='.$id.', followers => ';
+	// echo '<br>';
 	// fwrite($fp, $id.',');
 
 	// Followers
@@ -38,8 +53,10 @@ for($i=25;$i<100;$i++) {
 	$tab=array();
 	foreach ($followers as $key => $value) {
 		if($key=="errors"){
-			echo '<br>Error : ';
+			echo '<br><b>Error :</b> ';
 			print_r($value);
+			echo '<br>Je sauve id_get à '.$i;
+			$_SESSION["id_get"]=$i;
 			return;
 		}
 		elseif($key=="ids"){
@@ -53,7 +70,7 @@ for($i=25;$i<100;$i++) {
 	echo implode(';', $tab)."<br>";
 	fwrite($fp, $id.','.implode(';', $tab)."\n");
 
-	// var_dump($result);
+	// var_dump($followers);
 
 	// $i++;	
 }

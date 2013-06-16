@@ -3,7 +3,7 @@
 echo "<meta http-equiv=\"Content-Type\" content=\"text/HTML; charset=utf-8\" />";
 
 
-$array = file('users_id_500.csv');
+$array = file('users_followers_200.csv');
 $users=array();
 
 

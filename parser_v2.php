@@ -4,8 +4,8 @@ session_start();
 echo "<meta http-equiv=\"Content-Type\" content=\"text/HTML; charset=utf-8\" />";
 
 
-$array = file('./abraham/users_id_500.csv');
-$fp = fopen('selection_tweets_500.json', 'a');
+$array = file('./abraham/users_id_200.csv');
+$fp = fopen('selection_tweets_200.json', 'a');
 $file_json = file_get_contents("./abraham/results.json");
 $json = json_decode($file_json);
 

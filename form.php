@@ -19,7 +19,7 @@ if($_GET["choix"]){
 	$fp = fopen('data.csv', 'a');
 
 	$user=$_SESSION["tweets"][$_SESSION["id"]]["user_id"];
-	$username=$_SESSION["tweets"][$_SESSION["id"]]["username"];
+	// $username=$_SESSION["tweets"][$_SESSION["id"]]["username"];
 	$date=$_SESSION["tweets"][$_SESSION["id"]]["date"];
 	$text=$_SESSION["tweets"][$_SESSION["id"]]["text"];
 	// $tweet_id=$_SESSION["tweets"][$_SESSION["id"]]["id"];
@@ -27,7 +27,7 @@ if($_GET["choix"]){
 	$choix=$_GET["choix"];
 	$session_id=$_SESSION["id"];
 
-	fwrite($fp, $user.','.$username.','.$date.','.$choix."\n");
+	fwrite($fp, $user.','.$date.','.$choix."\n");
 	
 	$_SESSION["id"]=$session_id+1;
 

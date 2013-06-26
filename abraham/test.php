@@ -4,30 +4,54 @@ session_start();
 
 
 
-$fp = fopen('tweets_and_names_200.csv', 'a');
 
-$array = file('./users_id_200.csv');
-$users=array();
-foreach ($array as $key => $value) {
+$data_a = file('../data.csv');
+$names_a = file('./tweets_and_names_200.csv');
+$fp = fopen('data_all.csv', 'a');
+
+$names=array();
+foreach ($names_a as $key => $value) {
 	$tab=explode(',', $value);
 	$id=intval($tab[0]);
 	$name=$tab[1];
-	$users[$id]=$name;
+	$followers=$tab[2];
+	$names[$id]=array('name' => $name, 'followers' => $followers);
 }
-// print_r($users);
 
-
-$array = file('./users_followers_200.csv');
-
-foreach ($array as $key => $value) {
+$data=array();
+foreach ($data_a as $key => $value) {
 	$tab=explode(',', $value);
 	$id=intval($tab[0]);
-	$followers=$tab[1];
-	$username=$users[$id];
-	if(array_key_exists($id,$users)){
-		fwrite($fp, $id.','.$username.','.$followers);
-	}
+	$time=$tab[1];
+	$choix=str_replace("\n", "", $tab[2]);
+	$data[$id]=array('time' => $time, 'choix' => $choix);
 }
+
+foreach ($names as $key => $value) {
+	$id=$key;
+	$name=$value['name'];
+	$followers=$value['followers'];
+
+	$time=$data[$id]['time'];
+	$choix=$data[$id]['choix'];
+
+	// echo '<br>'.$id.' : '.$followers;
+
+	fwrite($fp, $id.','.$name.','.$time.','.$choix.','.$followers);
+}
+
+
+// $array = file('./users_followers_200.csv');
+
+// foreach ($array as $key => $value) {
+// 	$tab=explode(',', $value);
+// 	$id=intval($tab[0]);
+// 	$followers=$tab[1];
+// 	$username=$users[$id];
+// 	if(array_key_exists($id,$users)){
+// 		fwrite($fp, $id.','.$username.','.$followers);
+// 	}
+// }
 
 
 ?>

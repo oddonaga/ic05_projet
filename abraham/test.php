@@ -59,7 +59,7 @@ foreach ($names as $key => $value) {
 	$followers_a2=array();
 	foreach ($followers_a as $key2 => $value2) {
 		if(array_key_exists($value2, $names)){
-			$followers_a2[]=$value2;
+			$followers_a2[]=$names[$value2]['name'];
 		}
 		else{
 			if(!in_array($value2, $test)){

@@ -10,12 +10,33 @@ $names_a = file('./tweets_and_names_200.csv');
 $fp = fopen('data_all2.csv', 'a');
 
 $names=array();
+$est_follow=array();
 foreach ($names_a as $key => $value) {
 	$tab=explode(',', $value);
 	$id=intval($tab[0]);
 	$name=$tab[1];
 	$followers=$tab[2];
 	$names[$id]=array('name' => $name, 'followers' => $followers);
+	$est_follow[$id]=0;
+}
+
+foreach ($names as $key => $value) {
+	$followers=$value["followers"];
+	$followers=str_replace("\n", "", $value['followers']);
+	$followers_a=explode(";",$followers);
+
+	foreach ($followers_a as $key2 => $value2) {
+		if(array_key_exists($value2, $names)){
+			$value2=intval($value2);
+			$followers_a2[]=$value2;
+			$est_follow[$value2]=1;
+		}
+		else{
+			if(!in_array($value2, $test)){
+				$test[]=$value2;
+			}
+		}
+	}
 }
 
 $data=array();
@@ -38,11 +59,9 @@ foreach ($names as $key => $value) {
 	$followers_a2=array();
 	foreach ($followers_a as $key2 => $value2) {
 		if(array_key_exists($value2, $names)){
-			echo 'ok';
 			$followers_a2[]=$value2;
 		}
 		else{
-			echo '<br>not in array<br>';
 			if(!in_array($value2, $test)){
 				$test[]=$value2;
 			}
@@ -54,11 +73,21 @@ foreach ($names as $key => $value) {
 
 	// echo '<br>'.$id.' : '.$followers;
 
-	fwrite($fp, $id.','.$name.','.$time.','.$choix.','.implode(";",$followers_a2)."\n");
+	if(count($followers_a)==1 and $followers=="" and $est_follow[$id]==0){
+		echo $id." non écrit<br>";
+		$i++;
+	}
+		
+	else fwrite($fp, $id.','.$name.','.$time.','.$choix.','.implode(";",$followers_a2)."\n");
+	 
 }
 
-echo '<br><br>count ='.count($test).'<br>';
-print_r($test);
+echo 'i='.$i;
+
+// print_r($names);
+
+// echo '<br><br>count ='.count($test).'<br>';
+// print_r($test);
 
 
 // $array = file('./users_followers_200.csv');

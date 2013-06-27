@@ -27,18 +27,38 @@ foreach ($data_a as $key => $value) {
 	$data[$id]=array('time' => $time, 'choix' => $choix);
 }
 
+$test=array();
+
 foreach ($names as $key => $value) {
 	$id=$key;
 	$name=$value['name'];
-	$followers=$value['followers'];
+	$followers=str_replace("\n", "", $value['followers']);
+	$followers_a=explode(";",$followers);
+
+	$followers_a2=array();
+	foreach ($followers_a as $key2 => $value2) {
+		if(array_key_exists($value2, $names)){
+			echo 'ok';
+			$followers_a2[]=$value2;
+		}
+		else{
+			echo '<br>not in array<br>';
+			if(!in_array($value2, $test)){
+				$test[]=$value2;
+			}
+		}
+	}
 
 	$time=$data[$id]['time'];
 	$choix=$data[$id]['choix'];
 
 	// echo '<br>'.$id.' : '.$followers;
 
-	fwrite($fp, $id.','.$name.','.$time.','.$choix.','.$followers);
+	fwrite($fp, $id.','.$name.','.$time.','.$choix.','.implode(";",$followers_a2)."\n");
 }
+
+echo '<br><br>count ='.count($test).'<br>';
+print_r($test);
 
 
 // $array = file('./users_followers_200.csv');

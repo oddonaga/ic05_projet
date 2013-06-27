@@ -7,7 +7,7 @@ session_start();
 
 $data_a = file('../data.csv');
 $names_a = file('./tweets_and_names_200.csv');
-$fp = fopen('data_all.csv', 'a');
+$fp = fopen('data_all2.csv', 'a');
 
 $names=array();
 foreach ($names_a as $key => $value) {

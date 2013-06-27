@@ -55,6 +55,7 @@
                   <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
                   <nav class="pull-right nav-collapse collapse">
                     <ul id="menu-main" class="nav">
+                    	<li><a title="methode" href="#methode">Méthode</a></li>
                       <li><a title="maquettes" href="#portfolio">Graphes</a></li>
                       <li><a title="services" href="#services">Conclusions</a></li>
                       <li><a title="team" href="#team">Equipe</a></li>
@@ -79,6 +80,73 @@
           <div class="scrollblock">
             <section id="feature"></section>
           </div>
+           <!--******************** Description Section ********************-->
+          <section id="methode" class="single-page scrollblock">
+            <div class="container">
+              <div class="align"><i class="icon-desktop-circled"></i></div>
+              <h1>Méthode</h1>
+              <div class="row">
+                <div class="span4" style="text-align:justify;">
+                  <div class="inside">
+                    <hgroup>
+                      <h2>API Twitter</h2>
+                      <br/>
+                    </hgroup>
+                    <div class="entry-content">
+                      <p>
+                      	Pour cette étude nous avons utilisé la <a href="https://dev.twitter.com/docs/api/1.1">REST API v1.1</a> de Twitter.<br/>
+                      	Cette API permet entre autres de récupérer les tweets postés dans les 10 derniers jours selon divers critères : jour/heure, localisation de l'utilisateur, hashtag utilisé, nombre de retweets... <br/>
+                      	Nous nous sommes focalisées sur la dernière manif pour tous, ayant eu lieu le 26 mai 2013, et nous sommes interessées aux tweets postés entre 10h et 19h (soit l'intervalle de temps pendant lequel la manif s'est déroulée), et possédant le hashtag <em>"#manifpourtous"</em>. </br><br/>
+                      	Le nombre de tweets récupéré étant très élevé (environ 10 000) nous avons décidé de ne sélectionner qu'une partie des résultats, dans le but d'obtenir un graphe lisible. Plutôt que d'échantilloner en récupérant aléatoirement un certains nombre de tweets, nous n'avons gardé que les tweets postés par des utilisateurs suivis par plus de 200 personnes, donc les utilisateurs ayant une certaine influence sur la twittosphère. <br/>
+                      	Cela a réduit le nombre de tweets à environ 490.
+                      	
+                      </p>
+                     </div>
+                  </div>
+                 </div>
+                 <div class="span4" style="text-align:justify;">
+                      <div class="inside">
+                    <hgroup>
+                      <h2>Classification</h2>
+                      <br/>
+                    </hgroup>
+                    <div class="entry-content">
+                      <p>
+                      	Nous avons classifié chaque tweet selon son contenu favorable ou défavorable à la loi sur le mariage pour tous. Certains tweets, à visée purement informative ou humoristique, sans aucun parti pris de la part de l'utilisateur, ont été classés dans une troisième classe "neutre".  	
+                      	
+                      	<h4>Exemple de tweet classé comme défavorable à la manif pour tous : </h4> 
+                      	<em>Pour avoir enlevé un sticker #ManifPourTous @mattrouveyre Jeune homo de 18 ans agressé physiquement à Bordeaux. En ce moment aux urgences.</em>
+                      	
+                      	<br/>
+                      	<h4>Exemple de tweet classé comme favorable à la manif pour tous : </h4>
+                      	<em>La #ManifPourTous s'est dispersée à 19h. Aucun incident durant la journée. #Valls et #Ayrault ont dc eu tors de la déconseiller"</em><br/><br/>
+                    	Les utilisateurs ayant posté des tweets favorables à la manif pour tous ont été considérées comme défavorables à la loi sur la mariage pour tous et inversement. 
+                      </p>
+                      </div>
+                    </div>
+                    <!-- /.inside -->
+                  </div>
+                 
+                 <div class="span4" style="text-align:justify;">
+                      <div class="inside">
+                    <hgroup>
+                      <h2>Visualisation Gephi</h2>
+                      <br/>
+                    </hgroup>
+                    <div class="entry-content">
+                      <p>
+                      	Pour obtenir un format .gexf adapté à la plateforme <a href="https://gephi.org/">Gephi</a> à partir du fichier .csv construit en utilisant l'API, nous avons utilisé l'outil du médialab de Sciences Po : <a href="http://tools.medialab.sciences-po.fr/table2net/">table2net</a>.<br/>
+                      	Les noeuds représentent les utilisateurs ayant posté les tweets, les arcs représentent les liens de following (si A suit B, alors les noeuds A et B sont connectés. <br/>
+                      	La couleur rose représentent les personnes <strong>favorables à la loi</strong>, le bleu les personnes <strong>défavorables à la loi</strong>, le jaune les personnes neutres.
+                      </p>
+                      </div>
+                    </div>
+                    <!-- /.inside -->
+                  </div>
+                  </div>                
+              </div>
+              <!-- /.container -->
+            </section>
           <!--******************** Portfolio Section ********************-->
           <section id="portfolio" class="single-page scrollblock">
             <div class="container">
@@ -86,44 +154,39 @@
               <h1 id="folio-headline">Graphes</h1>
               <div class="row">
                 <div class="span4">
-                  <div class="mask2"> <a href="./forceatlas"><img src="img/blocs.jpg" alt=""></a> </div>
+                  <div class="mask2"> <a href="./forceatlas"><img src="img/forceatlas.png" alt=""></a> </div>
                   <div class="inside">
                     <hgroup>
                       <a href="./forceatlas"><h2>ForceAtlas</h2></a>
                     </hgroup>
                     <div class="entry-content">
-                      <p>Des centaines de sites internet basés sur la collaboration et le partage voient le jour et ouvrent de nouvelles perspectives en proposant un modèle nouveau fondé sur le communautaire et la contribution. Cette dynamique, entreprise par de nombreuses start-up, souffre, selon nous, d’un manque de visibilité aux regards des internautes.
-                        Avec le projet AlveolUs nous souhaitons offrir à ces nouveaux sites internet un espace dédié dans le but d'accroître leur visibilité et de les faire découvrir aux internautes.</p>
+                      <p>L'algorithme Force Atlas met en valeur les cluster et les centres d'influence. Les cluster sont très regroupés autour de leurs centres.</p>
                       </div>
                     </div>
                     <!-- /.inside -->
                   </div>
                   <!-- /.span4 -->
                   <div class="span4">
-                    <div class="mask2"> <a href="./yifanhu"><img src="img/etudiants.png" alt=""></a> </div>
+                    <div class="mask2"> <a href="./yifanhu"><img src="img/yifanhu.png" alt=""></a> </div>
                     <div class="inside">
                       <hgroup>
                         <a href="./yifanhu"><h2>Yifan Hu</h2></a>
                       </hgroup>
                       <div class="entry-content">
-                        <p>Le public que nous visons est essentiellement le public étudiant. Ils sont les premiers consommateurs et producteurs de contenu sur internet, ce sont les plus actifs et les plus à même de former une communauté autour d’un modèle alternatif nouveau et socialisant. De plus, le public étudiant qui subit, peut-être plus que d’autres, les effets de la conjoncture économique sont les premiers intéressés à passer à une autre forme de consommation basée sur le partage. À la fois grâce aux les économies ﬁnancières qu’elle génère, mais aussi par le lien social qu’elle peut recréer.</p>
+                        <p>L'algorithme Yifan Hu permet de séparer plus nettement les centres et les individus en périphérie, mettant en valeur la plus ou moins grande dispersion de la classe.</p>
                       </div>
                     </div>
                     <!-- /.inside -->
                   </div>
                   <!-- /.span4 -->
                   <div class="span4">
-                    <div class="mask2"> <a href="./fruchterman"><img src="img/maquette.png" alt=""></a> </div>
+                    <div class="mask2"> <a href="./fruchterman"><img src="img/fruchterman.png" alt=""></a> </div>
                     <div class="inside">
                       <hgroup>
                         <a href="./fruchterman"><h2>Fruchterman</h2></a>
                       </hgroup>
                       <div class="entry-content">
-                        <p>Nous nous étions fixé 3 objectifs en tant que développeurs pour la navigation dans notre application : 
-adopter un design flat UI, faire en sorte que l’application soit responsive et pas plus de 3 clics de souris pour accéder à chacune des pages depuis la page d'accueil. Dans l’ensemble les objectifs ont été atteint.
-
-Pour le choix des couleurs, nous avons opté pour une bichromie vert/gris. Cela permet de garder une certaine sobriété sur l’ensemble de l’application et d’avoir un style épuré, sans pour autant que l’ensemble ne paraisse trop triste. La photo choisie sur la page d’accueil s’inscrit bien dans cette optique.
-</p>
+                        <p>L'algorithme de Fruchterman permet d'obtenir un graphe plus aéré, en espacant davantage les noeuds par rapport aux autres.</p>
                       </div>
                     </div>
                     <!-- /.inside -->
@@ -145,31 +208,28 @@ Pour le choix des couleurs, nous avons opté pour une bichromie vert/gris. Cela 
                 <div class="row">
                   <div class="span3">
                     <div class="align"> <i class="icon-group-circled sev_icon"></i> </div>
-                    <h2>Un site participatif</h2>
-                    <p>Toute l'expérience utilisateur est centrée autour de la communauté et de la participation de tous. En effet, les visiteurs sont incités à proposer leurs découvertes à la communauté et à voter afin de sélectionner aux même quels seront les sites présents au sein d'AlveolUs.</p>
+                    <h2>Une twittosphère divisée</h2>
+                    <p>Quel que soit l'algorithme utilisé, on observe 2 clusters bien distincts selon l'opinion des utilisateurs. Les opposants et partisans du mariage pour tous sont deux communautés opposées. Cela montre une certaine clusterisation politique de Twitter : les utilisateurs ont une tendance assez élevée à suivre les comptes qui se rapprochent de leur opinion politique.</p>
                   </div>
                   <!-- /.span3 -->
                   <div class="span3">
                     <div class="align"> <i class="icon-lamp sev_icon"></i> </div>
-                    <h2>Un nouveau mode de navigation</h2>
-                    <p>La vue "découverte" permet aux utilisateurs de  parcourir les alvéoles au sein d'un TreeMap. Ce graphique d'un nouveau genre présente les sites triés dans un graph et agrégés ensemble en fonction de leur catégorie ou des tags qui les composent.</p>
+                    <h2>Regroupement au sein d'une communauté</h2>
+                    <p>Si les deux clusters sont bien regroupés autour des centres, le groupe des opposants à la loi est particulièrement centré sur lui-même, et les utilisateurs les plus influents ont un degré plus élevé que chez les partisans, ce qui suggère une communauté très soudée. On observe une dispersion un peu plus élevée parmi le groupe des partisans (cf. graphe Yifan Hu).</p>
                   </div>
                   <!-- /.span3 -->
                   <div class="span3">
                     <div class="align"> <i class="icon-beaker sev_icon"></i> </div>
-                    <h2>Réseaux sociaux</h2>
-                    <p>L'importance des réseaux sociaux est devenue telle qu'il nous est impossible de ne pas s'en préoccuper. Nous les avons intégrés de trois manières différentes:<br/>
-                      - En affichant le nombre de fans et followers des alvéoles<br/>
-                      - En permettant le partage à la communauté<br/>
-                      - Grâce à l'inscription en un clic de Facebook, véritable amélioration de l'expérience utilisateur
-
+                    <h2>Proportion Pour/Contre</h2>
+                    <p>
+                    	Même si cela est à prendre avec un certain recul étant donné les contraintes et restrictions de la méthode suivie, il semblerait que les internautes de la twittosphère soient majoritairement favorable à la loi sur le mariage pour tous. On observe environ 60% d'opinions favorables contre 30% d'opinions défavorables à la loi.
                     </p>
                   </div>
                   <!-- /.span3 -->
                   <div class="span3">
                     <div class="align"> <i class="icon-rocket sev_icon"></i> </div>
-                    <h2>Marketing</h2>
-                    <p>Pour faire la promotion de notre site, nous sommes passés par l'intermédiaire de blogs réputés tels que Korben, The French Web et Presse Citron qui ont écrit des articles sur notre projet, apportant avec eux un très grand nombre de visiteurs qui ont constitué dès le début une large communauté participante</p>
+                    <h2>Pour aller plus loin</h2>
+                    <p>L'étude se base essentiellement sur les tweets contenant le hashtag "#manifpourtous". Pour avoir une vue plus représentative de l'opinion générale sur ce thème, il conviendrait d'inclure à l'étude tous les hashtags sur ce thème, tels que "#mariagepourtous", "#mariagegay", ou "#manifpourtous2013".</p>
                   </div>
                   <!-- /.span3 -->
                 </div>
@@ -204,7 +264,7 @@ Pour le choix des couleurs, nous avons opté pour une bichromie vert/gris. Cela 
             <section id="contact" class="single-page scrollblock">
               <div class="container">
                 <div class="align"><i class="icon-install"></i></div>
-                <a href="https://github.com/vpoulain/alveolus-frontend"><h1>Téléchargez le code source</h1></a>
+                <a href="network.gephi"><h1>Téléchargez le fichier .gephi</h1></a>
                 <div class="row">
                   <div class="span12">
 
